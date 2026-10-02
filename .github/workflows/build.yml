@@ -27,9 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Download public release assets
+      - name: Download release assets using GitHub token
+        env:
+          PRIVATE_GH_TOKEN: ${{ secrets.PRIVATE_GH_TOKEN }}
         run: |
-          python scripts/download_release_assets.py --config apps.json
+          python scripts/download_release_assets.py --config apps.json --token "$env:PRIVATE_GH_TOKEN"
 
       - name: Build launcher EXE
         run: |

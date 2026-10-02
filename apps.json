@@ -1,37 +1,37 @@
 [
   {
     "name": "RAW DATA SPLITTER",
-    "filename": "raw-data-splitter.exe",
+    "filename": "raw_data_splitter.exe",
     "repo": "rishu-pandeylenskart/raw-data-splitter",
-    "asset_name": "raw-data-splitter.exe",
+    "asset_name": "raw_data_splitter.exe",
     "tag": "latest"
   },
   {
     "name": "ARAMEX AUTOMATION",
-    "filename": "ARAMEX_AUTOMATION.exe",
+    "filename": "Aramex_Shipment_Automation.exe",
     "repo": "rishu-pandeylenskart/ARAMEX_AUTOMATION",
-    "asset_name": "ARAMEX_AUTOMATION.exe",
+    "asset_name": "Aramex_Shipment_Automation.exe",
     "tag": "latest"
   },
   {
     "name": "VELOCITY AUTOMATION",
-    "filename": "VELOCITY_AUTOMATION.exe",
+    "filename": "Velocity_Automation.exe",
     "repo": "rishu-pandeylenskart/VELOCITY_AUTOMATION",
-    "asset_name": "VELOCITY_AUTOMATION.exe",
+    "asset_name": "Velocity_Automation.exe",
     "tag": "latest"
   },
   {
     "name": "DHL AUTOMATION",
-    "filename": "DHL_AUTOMATION.exe",
+    "filename": "Singapore_DHL_Automation.exe",
     "repo": "rishu-pandeylenskart/DHL_AUTOMATION",
-    "asset_name": "DHL_AUTOMATION.exe",
+    "asset_name": "Singapore_DHL_Automation.exe",
     "tag": "latest"
   },
   {
     "name": "FEDEX AUTOMATION",
-    "filename": "FEDEX_AUTOMATION.exe",
+    "filename": "FBT-Manifest-Generator.exe",
     "repo": "rishu-pandeylenskart/FEDEX_AUTOMATION",
-    "asset_name": "FEDEX_AUTOMATION.exe",
+    "asset_name": "FBT-Manifest-Generator.exe",
     "tag": "latest"
   }
 ]

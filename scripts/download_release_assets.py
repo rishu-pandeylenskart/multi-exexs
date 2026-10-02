@@ -23,10 +23,18 @@ def get_latest_release(repo: str, token: str | None, tag: str | None):
 
 
 def download_asset(asset_url: str, output_path: Path, token: str | None):
-    headers = {}
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/octet-stream",
+    }
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    response = requests.get(asset_url, headers=headers, timeout=120, stream=True)
+
+    if "/releases/assets/" in asset_url and token:
+        response = requests.get(asset_url, headers=headers, timeout=120, stream=True, allow_redirects=True)
+    else:
+        response = requests.get(asset_url, headers=headers, timeout=120, stream=True, allow_redirects=True)
+
     if response.status_code != 200:
         raise RuntimeError(
             f"Failed to download asset {asset_url}: {response.status_code} {response.text[:500]}"
@@ -106,7 +114,8 @@ def main():
                 continue
 
             print(f"[download] {name}: {chosen.get('name')} from {repo}")
-            download_asset(chosen["browser_download_url"], target_path, args.token)
+            api_asset_url = f"https://api.github.com/repos/{repo}/releases/assets/{chosen['id']}"
+            download_asset(api_asset_url, target_path, args.token)
             downloaded_any = True
         except Exception as exc:
             print(f"[warn] Failed to fetch or download {name}: {exc}")

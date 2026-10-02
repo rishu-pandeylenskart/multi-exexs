@@ -3,7 +3,7 @@
 This repo creates a single Windows launcher that bundles five separate custom EXE tools into one build.
 
 The workflow:
-- downloads the latest public release assets from the GitHub repositories
+- downloads the latest release assets from the GitHub repositories using a GitHub token
 - stores them under a local `dist_assets` folder
 - packages them into a launcher app using PyInstaller
 - produces one `5_in_1_launcher.exe`
@@ -12,7 +12,7 @@ The workflow:
 ## Required setup
 
 1. Create a GitHub repository for this launcher.
-2. Make the app release repos public.
+2. Add a repository secret named `PRIVATE_GH_TOKEN` with access to the automation repos.
 3. Update the app metadata in `apps.json` so each app points to the right repository and asset name.
 
 ## Files to update
@@ -49,7 +49,8 @@ The workflow uploads the EXE as a build artifact and also creates a GitHub Relea
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-python scripts/download_release_assets.py --config apps.json
+$env:PRIVATE_GH_TOKEN = gh auth token
+python scripts/download_release_assets.py --config apps.json --token "$env:PRIVATE_GH_TOKEN"
 pyinstaller --noconfirm --onefile --windowed --name "5_in_1_launcher" --add-data "dist_assets;dist_assets" launcher_app.py
 ```
 
