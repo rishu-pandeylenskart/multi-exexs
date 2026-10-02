@@ -35,7 +35,7 @@ jobs:
 
       - name: Build launcher EXE
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "5_in_1_launcher" --add-data "dist_assets;dist_assets" launcher_app.py
+          pyinstaller --noconfirm --onefile --windowed --name "5_in_1_launcher" --add-data "apps.json;." --add-data "dist_assets;dist_assets" launcher_app.py
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

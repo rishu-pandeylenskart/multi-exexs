@@ -22,10 +22,24 @@ def load_apps() -> list[dict]:
     config_path = get_resource_base() / "apps.json"
     if not config_path.exists():
         config_path = Path(__file__).resolve().parent / "apps.json"
-    if not config_path.exists():
+
+    if config_path.exists():
+        with config_path.open("r", encoding="utf-8") as handler:
+            return json.load(handler)
+
+    assets_dir = get_assets_dir()
+    exe_files = sorted(assets_dir.glob("*.exe"))
+    if not exe_files:
         return []
-    with config_path.open("r", encoding="utf-8") as handler:
-        return json.load(handler)
+
+    apps = []
+    for exe_file in exe_files:
+        name = exe_file.stem.replace("_", " ").replace("-", " ")
+        apps.append({
+            "name": name.title(),
+            "filename": exe_file.name,
+        })
+    return apps
 
 
 def get_assets_dir() -> Path:
