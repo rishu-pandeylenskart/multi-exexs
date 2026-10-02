@@ -1,0 +1,37 @@
+[
+  {
+    "name": "RAW DATA SPLITTER",
+    "filename": "raw-data-splitter.exe",
+    "repo": "rishu-pandeylenskart/raw-data-splitter",
+    "asset_name": "raw-data-splitter.exe",
+    "tag": "latest"
+  },
+  {
+    "name": "ARAMEX AUTOMATION",
+    "filename": "ARAMEX_AUTOMATION.exe",
+    "repo": "rishu-pandeylenskart/ARAMEX_AUTOMATION",
+    "asset_name": "ARAMEX_AUTOMATION.exe",
+    "tag": "latest"
+  },
+  {
+    "name": "VELOCITY AUTOMATION",
+    "filename": "VELOCITY_AUTOMATION.exe",
+    "repo": "rishu-pandeylenskart/VELOCITY_AUTOMATION",
+    "asset_name": "VELOCITY_AUTOMATION.exe",
+    "tag": "latest"
+  },
+  {
+    "name": "DHL AUTOMATION",
+    "filename": "DHL_AUTOMATION.exe",
+    "repo": "rishu-pandeylenskart/DHL_AUTOMATION",
+    "asset_name": "DHL_AUTOMATION.exe",
+    "tag": "latest"
+  },
+  {
+    "name": "FEDEX AUTOMATION",
+    "filename": "FEDEX_AUTOMATION.exe",
+    "repo": "rishu-pandeylenskart/FEDEX_AUTOMATION",
+    "asset_name": "FEDEX_AUTOMATION.exe",
+    "tag": "latest"
+  }
+]

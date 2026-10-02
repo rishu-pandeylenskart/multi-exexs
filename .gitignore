@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.exe
+build/
+dist/
+.venv/
+.env
+.vscode/
+workspace/
+dist_assets/

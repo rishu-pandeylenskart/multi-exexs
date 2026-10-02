@@ -1,0 +1,11 @@
+Is we can merge multiple custom .exe apps into one 5 into 1 with their own all
+these are in releases raw-data-splitter 
+  
+ARAMEX_AUTOMATION Private 
+  
+VELOCITY_AUTOMATION 
+  
+DHL_AUTOMATION Private 
+  
+FEDEX_AUTOMATION   https://github.com/rishu-pandeylenskart?tab=repositories   the 5 exes are in that repo releases and these are private and i have given acess
+create an repo and build .exe from github action
