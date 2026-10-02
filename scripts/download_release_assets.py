@@ -55,6 +55,8 @@ def main():
     with config_path.open("r", encoding="utf-8") as fh:
         apps = json.load(fh)
 
+    downloaded_any = False
+
     for app in apps:
         name = app.get("name", "UNKNOWN")
         filename = app.get("filename")
@@ -64,38 +66,54 @@ def main():
         tag = app.get("tag", "latest")
 
         if not filename:
-            raise ValueError(f"Missing filename for app entry: {name}")
+            print(f"[warn] Missing filename for app entry: {name}")
+            continue
         if not repo and not asset_url:
-            raise ValueError(f"Missing repo or asset_url for app entry: {name}")
+            print(f"[warn] Missing repo or asset_url for app entry: {name}")
+            continue
 
         target_path = output_dir / filename
         if target_path.exists():
             print(f"[skip] {name}: already present -> {target_path}")
+            downloaded_any = True
             continue
 
-        if asset_url:
-            print(f"[download] {name}: direct asset URL")
-            download_asset(asset_url, target_path, args.token)
+        try:
+            if asset_url:
+                print(f"[download] {name}: direct asset URL")
+                download_asset(asset_url, target_path, args.token)
+                downloaded_any = True
+                continue
+
+            release = get_latest_release(repo, args.token, tag)
+            assets = release.get("assets", [])
+            chosen = None
+
+            for candidate in assets:
+                asset_name_candidate = candidate.get("name")
+                if asset_name and asset_name_candidate == asset_name:
+                    chosen = candidate
+                    break
+                if not asset_name and asset_name_candidate.lower().endswith(".exe"):
+                    chosen = candidate
+                    break
+
+            if not chosen:
+                print(
+                    f"[warn] No suitable EXE asset found for {repo}. "
+                    f"Check asset_name in apps.json or make the repo public."
+                )
+                continue
+
+            print(f"[download] {name}: {chosen.get('name')} from {repo}")
+            download_asset(chosen["browser_download_url"], target_path, args.token)
+            downloaded_any = True
+        except Exception as exc:
+            print(f"[warn] Failed to fetch or download {name}: {exc}")
             continue
 
-        release = get_latest_release(repo, args.token, tag)
-        assets = release.get("assets", [])
-        chosen = None
-
-        for candidate in assets:
-            asset_name_candidate = candidate.get("name")
-            if asset_name and asset_name_candidate == asset_name:
-                chosen = candidate
-                break
-            if not asset_name and asset_name_candidate.lower().endswith(".exe"):
-                chosen = candidate
-                break
-
-        if not chosen:
-            raise RuntimeError(f"No suitable EXE asset found for {repo}. Check asset_name in apps.json")
-
-        print(f"[download] {name}: {chosen.get('name')} from {repo}")
-        download_asset(chosen["browser_download_url"], target_path, args.token)
+    if not downloaded_any:
+        print("[warn] No EXE assets were downloaded. The launcher will still build, but all app entries will show as Missing until the repos are public and valid.")
 
     print(f"Download complete. Files are stored in: {output_dir.resolve()}")
 
