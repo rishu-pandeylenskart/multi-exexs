@@ -4,35 +4,40 @@
     "filename": "raw_data_splitter.exe",
     "repo": "rishu-pandeylenskart/raw-data-splitter",
     "asset_name": "raw_data_splitter.exe",
-    "tag": "latest"
+    "tag": "latest",
+    "required": true
   },
   {
     "name": "ARAMEX AUTOMATION",
     "filename": "Aramex_Shipment_Automation.exe",
     "repo": "rishu-pandeylenskart/ARAMEX_AUTOMATION",
     "asset_name": "Aramex_Shipment_Automation.exe",
-    "tag": "latest"
+    "tag": "latest",
+    "required": true
   },
   {
     "name": "VELOCITY AUTOMATION",
     "filename": "Velocity_Automation.exe",
     "repo": "rishu-pandeylenskart/VELOCITY_AUTOMATION",
     "asset_name": "Velocity_Automation.exe",
-    "tag": "latest"
+    "tag": "latest",
+    "required": true
   },
   {
     "name": "DHL AUTOMATION",
     "filename": "Singapore_DHL_Automation.exe",
     "repo": "rishu-pandeylenskart/DHL_AUTOMATION",
     "asset_name": "Singapore_DHL_Automation.exe",
-    "tag": "latest"
+    "tag": "latest",
+    "required": true
   },
   {
     "name": "FEDEX AUTOMATION",
     "filename": "FBT-Manifest-Generator.exe",
     "repo": "rishu-pandeylenskart/FEDEX_AUTOMATION",
     "asset_name": "FBT-Manifest-Generator.exe",
-    "tag": "latest"
+    "tag": "latest",
+    "required": true
   },
   {
     "name": "SAUDI BULK BOOKING",
