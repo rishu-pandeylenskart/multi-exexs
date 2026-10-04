@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='5_in_1_launcher',
+    name='6_in_1_launcher',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

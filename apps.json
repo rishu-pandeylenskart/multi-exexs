@@ -33,5 +33,13 @@
     "repo": "rishu-pandeylenskart/FEDEX_AUTOMATION",
     "asset_name": "FBT-Manifest-Generator.exe",
     "tag": "latest"
+  },
+  {
+    "name": "SAUDI BULK BOOKING",
+    "filename": "saudi_bulk_booking.exe",
+    "repo": "rishu-pandeylenskart/saudi-bulk-booking",
+    "asset_name": "saudi_bulk_booking.exe",
+    "tag": "latest",
+    "required": true
   }
 ]

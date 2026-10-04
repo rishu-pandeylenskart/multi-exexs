@@ -64,14 +64,14 @@ def build_gui():
         raise RuntimeError("Tkinter is not available in this environment.")
 
     root = tk.Tk()
-    root.title("5-in-1 Automation Launcher")
-    root.geometry("720x480")
-    root.minsize(640, 400)
+    root.title("6-in-1 Automation Launcher")
+    root.geometry("720x560")
+    root.minsize(640, 480)
 
     frame = ttk.Frame(root, padding=20)
     frame.pack(fill="both", expand=True)
 
-    title = ttk.Label(frame, text="5-in-1 Automation Launcher", font=("Segoe UI", 18, "bold"))
+    title = ttk.Label(frame, text="6-in-1 Automation Launcher", font=("Segoe UI", 18, "bold"))
     title.pack(anchor="w", pady=(0, 15))
 
     subtitle = ttk.Label(

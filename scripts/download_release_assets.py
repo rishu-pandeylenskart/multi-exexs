@@ -72,12 +72,19 @@ def main():
         asset_name = app.get("asset_name")
         asset_url = app.get("asset_url")
         tag = app.get("tag", "latest")
+        required = app.get("required", False)
 
         if not filename:
-            print(f"[warn] Missing filename for app entry: {name}")
+            message = f"Missing filename for app entry: {name}"
+            if required:
+                raise ValueError(message)
+            print(f"[warn] {message}")
             continue
         if not repo and not asset_url:
-            print(f"[warn] Missing repo or asset_url for app entry: {name}")
+            message = f"Missing repo or asset_url for app entry: {name}"
+            if required:
+                raise ValueError(message)
+            print(f"[warn] {message}")
             continue
 
         target_path = output_dir / filename
@@ -107,10 +114,13 @@ def main():
                     break
 
             if not chosen:
-                print(
-                    f"[warn] No suitable EXE asset found for {repo}. "
-                    f"Check asset_name in apps.json or make the repo public."
+                message = (
+                    f"No suitable EXE asset found for {repo}. "
+                    f"Check asset_name in apps.json or access to the repository."
                 )
+                if required:
+                    raise RuntimeError(message)
+                print(f"[warn] {message}")
                 continue
 
             print(f"[download] {name}: {chosen.get('name')} from {repo}")
@@ -119,6 +129,8 @@ def main():
             downloaded_any = True
         except Exception as exc:
             print(f"[warn] Failed to fetch or download {name}: {exc}")
+            if required:
+                raise RuntimeError(f"Required app {name} could not be downloaded.") from exc
             continue
 
     if not downloaded_any:
