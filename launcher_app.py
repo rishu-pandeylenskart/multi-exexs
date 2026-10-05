@@ -63,15 +63,17 @@ def build_gui():
     if tk is None or ttk is None:
         raise RuntimeError("Tkinter is not available in this environment.")
 
+    apps = load_apps()
+    launcher_name = f"{len(apps)}-in-1 Automation Launcher"
     root = tk.Tk()
-    root.title("6-in-1 Automation Launcher")
+    root.title(launcher_name)
     root.geometry("720x560")
     root.minsize(640, 480)
 
     frame = ttk.Frame(root, padding=20)
     frame.pack(fill="both", expand=True)
 
-    title = ttk.Label(frame, text="6-in-1 Automation Launcher", font=("Segoe UI", 18, "bold"))
+    title = ttk.Label(frame, text=launcher_name, font=("Segoe UI", 18, "bold"))
     title.pack(anchor="w", pady=(0, 15))
 
     subtitle = ttk.Label(
@@ -81,7 +83,6 @@ def build_gui():
     )
     subtitle.pack(anchor="w", pady=(0, 15))
 
-    apps = load_apps()
     assets_dir = get_assets_dir()
 
     if not apps:

@@ -46,5 +46,13 @@
     "asset_name": "saudi_bulk_booking.exe",
     "tag": "latest",
     "required": true
+  },
+  {
+    "name": "THAILAND BULK BOOKING",
+    "filename": "thailand_bulk_booking.exe",
+    "repo": "rishu-pandeylenskart/thailand_bulk_data_splitter",
+    "asset_name": "thailand_bulk_booking.exe",
+    "tag": "latest",
+    "required": true
   }
 ]

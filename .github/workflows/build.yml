@@ -1,4 +1,4 @@
-name: Build 6-in-1 Launcher
+name: Build 7-in-1 Launcher
 
 on:
   workflow_dispatch:
@@ -35,13 +35,13 @@ jobs:
 
       - name: Build launcher EXE
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "6_in_1_launcher" --add-data "apps.json;." --add-data "dist_assets;dist_assets" launcher_app.py
+          pyinstaller --noconfirm --onefile --windowed --name "7_in_1_launcher" --add-data "apps.json;." --add-data "dist_assets;dist_assets" launcher_app.py
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 6_in_1_launcher.exe
-          path: dist\6_in_1_launcher.exe
+          name: 7_in_1_launcher.exe
+          path: dist\7_in_1_launcher.exe
           if-no-files-found: error
 
       - name: Create GitHub Release
@@ -49,7 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', github.run_number) || github.ref_name }}
-          name: ${{ github.event_name == 'workflow_dispatch' && format('6-in-1 Launcher v{0}', github.run_number) || format('6-in-1 Launcher {0}', github.ref_name) }}
-          files: dist/6_in_1_launcher.exe
+          name: ${{ github.event_name == 'workflow_dispatch' && format('7-in-1 Launcher v{0}', github.run_number) || format('7-in-1 Launcher {0}', github.ref_name) }}
+          files: dist/7_in_1_launcher.exe
           draft: false
           generate_release_notes: true
