@@ -1,130 +1,40 @@
-import json
-import os
+"""Automation Hub launcher - entry point.
+
+The UI lives in the ``hub`` package.  The helpers below keep the original
+module-level names (load_apps / get_assets_dir / launch_app) available so any
+external script that imported them keeps working.
+"""
 import subprocess
 import sys
 from pathlib import Path
 
-try:
-    import tkinter as tk
-    from tkinter import ttk
-except ImportError:  # pragma: no cover
-    tk = None
-    ttk = None
-
-
-def get_resource_base() -> Path:
-    if hasattr(sys, "_MEIPASS"):
-        return Path(sys._MEIPASS)
-    return Path(__file__).resolve().parent
+from hub.config import load_apps_config
+from hub.paths import get_assets_dir, get_resource_base  # noqa: F401  (re-exported)
 
 
 def load_apps() -> list[dict]:
-    config_path = get_resource_base() / "apps.json"
-    if not config_path.exists():
-        config_path = Path(__file__).resolve().parent / "apps.json"
-
-    if config_path.exists():
-        with config_path.open("r", encoding="utf-8") as handler:
-            return json.load(handler)
-
-    assets_dir = get_assets_dir()
-    exe_files = sorted(assets_dir.glob("*.exe"))
-    if not exe_files:
-        return []
-
-    apps = []
-    for exe_file in exe_files:
-        name = exe_file.stem.replace("_", " ").replace("-", " ")
-        apps.append({
-            "name": name.title(),
-            "filename": exe_file.name,
-        })
-    return apps
-
-
-def get_assets_dir() -> Path:
-    base = get_resource_base()
-    candidate = base / "dist_assets"
-    if candidate.exists():
-        return candidate
-    fallback = base.parent / "dist_assets"
-    if fallback.exists():
-        return fallback
-    return base
+    """Original API: list of app dicts from apps.json (or bundled EXEs)."""
+    return [
+        {"name": a.name, "filename": a.filename, "repo": a.repo, "asset_name": a.asset_name,
+         "tag": a.tag, "required": a.required}
+        for a in load_apps_config().apps
+    ]
 
 
 def launch_app(exe_path: Path):
+    """Original API: start a child EXE exactly as before."""
     if not exe_path.exists():
         raise FileNotFoundError(f"Missing app: {exe_path}")
     subprocess.Popen([str(exe_path)], cwd=str(exe_path.parent))
 
 
 def build_gui():
-    if tk is None or ttk is None:
-        raise RuntimeError("Tkinter is not available in this environment.")
-
-    apps = load_apps()
-    launcher_name = f"{len(apps)}-in-1 Automation Launcher"
-    root = tk.Tk()
-    root.title(launcher_name)
-    root.geometry("720x560")
-    root.minsize(640, 480)
-
-    frame = ttk.Frame(root, padding=20)
-    frame.pack(fill="both", expand=True)
-
-    title = ttk.Label(frame, text=launcher_name, font=("Segoe UI", 18, "bold"))
-    title.pack(anchor="w", pady=(0, 15))
-
-    subtitle = ttk.Label(
-        frame,
-        text="Run any bundled automation tool from one launcher.",
-        font=("Segoe UI", 10),
-    )
-    subtitle.pack(anchor="w", pady=(0, 15))
-
-    assets_dir = get_assets_dir()
-
-    if not apps:
-        warning = ttk.Label(
-            frame,
-            text="No apps were found in apps.json. Add your app list and rebuild the launcher.",
-            foreground="darkred",
-            wraplength=600,
-            justify="left",
-        )
-        warning.pack(anchor="w", pady=10)
-        root.mainloop()
-        return
-
-    for app in apps:
-        app_name = app.get("name", "UNKNOWN APP")
-        filename = app.get("filename", "")
-        exe_path = assets_dir / filename
-
-        card = ttk.Frame(frame, padding=10)
-        card.pack(fill="x", pady=5)
-
-        row = ttk.Frame(card)
-        row.pack(fill="x")
-
-        label = ttk.Label(row, text=app_name, width=25, anchor="w")
-        label.pack(side="left")
-
-        status = "Available" if exe_path.exists() else "Missing"
-        status_color = "green" if exe_path.exists() else "gray"
-        status_label = ttk.Label(row, text=status, foreground=status_color, width=12)
-        status_label.pack(side="right")
-
-        action = ttk.Button(
-            row,
-            text="Launch",
-            state="normal" if exe_path.exists() else "disabled",
-            command=lambda path=exe_path: launch_app(path),
-        )
-        action.pack(side="right", padx=(0, 10))
-
-    root.mainloop()
+    try:
+        import tkinter  # noqa: F401
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Tkinter is not available in this environment.") from exc
+    from hub.app import main
+    main()
 
 
 if __name__ == "__main__":
@@ -132,6 +42,9 @@ if __name__ == "__main__":
         build_gui()
     except Exception as exc:
         print(f"Launcher error: {exc}", file=sys.stderr)
-        if os.name == "nt":
-            input("Press Enter to close...")
+        try:  # windowed build has no console - show the problem instead
+            from tkinter import messagebox
+            messagebox.showerror("Automation Hub", f"The launcher could not start.\n\n{type(exc).__name__}: {exc}")
+        except Exception:
+            pass
         raise

@@ -10,3 +10,4 @@ dist/
 .vscode/
 workspace/
 dist_assets/
+build_info.json

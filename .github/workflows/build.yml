@@ -33,9 +33,12 @@ jobs:
         run: |
           python scripts/download_release_assets.py --config apps.json --token "$env:PRIVATE_GH_TOKEN"
 
+      - name: Write build info
+        run: python scripts/write_build_info.py
+
       - name: Build launcher EXE
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "7_in_1_launcher" --add-data "apps.json;." --add-data "dist_assets;dist_assets" launcher_app.py
+          pyinstaller --noconfirm --onefile --windowed --name "7_in_1_launcher" --icon "assets\app.ico" --add-data "apps.json;." --add-data "dist_assets;dist_assets" --add-data "assets;assets" --add-data "build_info.json;." launcher_app.py
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

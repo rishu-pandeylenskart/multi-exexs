@@ -5,7 +5,10 @@
     "repo": "rishu-pandeylenskart/raw-data-splitter",
     "asset_name": "raw_data_splitter.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Data & Processing",
+    "description": "Cleans the Raw Data sheet of a booking file and splits it into NFEI YES and FedEx booking workbooks.",
+    "icon": "table"
   },
   {
     "name": "ARAMEX AUTOMATION",
@@ -13,7 +16,10 @@
     "repo": "rishu-pandeylenskart/ARAMEX_AUTOMATION",
     "asset_name": "Aramex_Shipment_Automation.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Shipping Automation",
+    "description": "Fills Aramex shipment templates for Dubai and Saudi (bulk and customer) bookings.",
+    "icon": "truck"
   },
   {
     "name": "VELOCITY AUTOMATION",
@@ -21,7 +27,10 @@
     "repo": "rishu-pandeylenskart/VELOCITY_AUTOMATION",
     "asset_name": "Velocity_Automation.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Shipping Automation",
+    "description": "Consolidates a Booking file into one Singapore tax invoice (Bulk, B2B, DO or OwnDays source).",
+    "icon": "bolt"
   },
   {
     "name": "DHL AUTOMATION",
@@ -29,7 +38,10 @@
     "repo": "rishu-pandeylenskart/DHL_AUTOMATION",
     "asset_name": "Singapore_DHL_Automation.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Shipping Automation",
+    "description": "Builds DHL shipment files for Singapore, OWNDAYS Singapore and Thailand bulk bookings.",
+    "icon": "package"
   },
   {
     "name": "FEDEX AUTOMATION",
@@ -37,7 +49,10 @@
     "repo": "rishu-pandeylenskart/FEDEX_AUTOMATION",
     "asset_name": "FBT-Manifest-Generator.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Shipping Automation",
+    "description": "Splits a FedEx booking export into the US and Non-US FBT batch upload templates.",
+    "icon": "plane"
   },
   {
     "name": "SAUDI BULK BOOKING",
@@ -45,7 +60,10 @@
     "repo": "rishu-pandeylenskart/saudi-bulk-booking",
     "asset_name": "saudi_bulk_booking.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Booking",
+    "description": "Cleans a Saudi bulk-booking file, adds Aramex AWBs and builds the booking workbook.",
+    "icon": "globe"
   },
   {
     "name": "THAILAND BULK BOOKING",
@@ -53,6 +71,9 @@
     "repo": "rishu-pandeylenskart/thailand_bulk_data_splitter",
     "asset_name": "thailand_bulk_booking.exe",
     "tag": "latest",
-    "required": true
+    "required": true,
+    "category": "Booking",
+    "description": "Cleans a Thailand bulk-booking file, converts declared value from THB to USD and builds the booking workbook.",
+    "icon": "globe"
   }
 ]
